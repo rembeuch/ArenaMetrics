@@ -1,0 +1,71 @@
+<%= link_to "ajouter un csv", file_path %>
+<% if flash[:notice] %>
+  <div class="alert alert-success">
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+<h1>Liste des réservations</h1>
+<p> Nombre de réservations: <%= @reservations.count  %> </p>
+<p>Nombre d'acheteurs uniques: <%= @total_buyers_count  %></p>
+<p>âge moyen des acheteurs: <%= @average_age %></p>
+<% @average_prices.each do |representation, average_price| %>
+<p>Spectacle: <%= representation %> / prix moyen: <%= average_price.round(2) %>€</p>    
+<% end %>
+<table>
+  <thead>
+    <tr>
+      <th>Numéro de billet</th>
+      <th>Numéro de réservation</th>
+      <th>Date de réservation</th>
+      <th>Heure de réservation</th>
+      <th>Clé du spectacle</th>
+      <th>Spectacle</th>
+      <th>Clé de la représentation</th>
+      <th>Représentation</th>
+      <th>Date de représentation</th>
+      <th>Heure de représentation</th>
+      <th>Date de fin de représentation</th>
+      <th>Heure de fin de représentation</th>
+      <th>Prix</th>
+      <th>Type de produit</th>
+      <th>Filière de vente</th>
+      <th>Nom</th>
+      <th>Prénom</th>
+      <th>Email</th>
+      <th>Adresse</th>
+      <th>Code postal</th>
+      <th>Pays</th>
+      <th>Âge</th>
+      <th>Sexe</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @reservations.each do |reservation| %>
+      <tr>
+        <td><%= reservation.ticket_number %></td>
+        <td><%= reservation.reservation_number %></td>
+        <td><%= reservation.reservation_date %></td>
+        <td><%= reservation.reservation_time %></td>
+        <td><%= reservation.show_key %></td>
+        <td><%= reservation.show_name %></td>
+        <td><%= reservation.representation_key %></td>
+        <td><%= reservation.representation_name %></td>
+        <td><%= reservation.representation_date %></td>
+        <td><%= reservation.representation_start_time %></td>
+        <td><%= reservation.representation_end_date %></td>
+        <td><%= reservation.representation_end_time %></td>
+        <td><%= reservation.price %></td>
+        <td><%= reservation.product_type %></td>
+        <td><%= reservation.sales_channel %></td>
+        <td><%= reservation.last_name %></td>
+        <td><%= reservation.first_name %></td>
+        <td><%= reservation.email %></td>
+        <td><%= reservation.address %></td>
+        <td><%= reservation.postal_code %></td>
+        <td><%= reservation.country %></td>
+        <td><%= reservation.age %></td>
+        <td><%= reservation.gender %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,7 @@
+<%= form_tag import_path, multipart: true do %>
+  <%= file_field_tag :file %>
+  <%= submit_tag "Importer le fichier CSV" %>
+<% end %>
+
+<%= link_to "Voir toutes les réservations", reservations_path %>
+
