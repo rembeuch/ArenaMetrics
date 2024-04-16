@@ -3,6 +3,7 @@ class ReservationsController < ApplicationController
 
   def index
     @reservations = Reservation.all
+    @reservations = @reservations.where(show_name: params[:show_name]) if params[:show_name].present?
 
     unique_buyers = @reservations.distinct.pluck(:last_name, :first_name, :email)
     @total_buyers_count = unique_buyers.count
@@ -18,7 +19,7 @@ class ReservationsController < ApplicationController
 
     @average_age = @ages.sum.round / @ages.size unless @ages.empty?
 
-    @average_prices = Reservation.group(:show_name).average(:price)
+    @average_prices = @reservations.group(:show_name).average(:price)
 
   end
 
@@ -63,6 +64,5 @@ class ReservationsController < ApplicationController
   end
 
   def file
-
   end
 end

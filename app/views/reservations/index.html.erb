@@ -5,12 +5,18 @@
   </div>
 <% end %>
 <h1>Liste des réservations</h1>
+<%= form_tag(reservations_path, method: :get) do %>
+  <%= select_tag :show_name, options_for_select(Reservation.pluck(:show_name).uniq), include_blank: 'Tous les spectacles' %>
+  <%= submit_tag "Filtrer par spectacle" %>
+<% end %>
 <p> Nombre de réservations: <%= @reservations.count  %> </p>
 <p>Nombre d'acheteurs uniques: <%= @total_buyers_count  %></p>
 <p>âge moyen des acheteurs: <%= @average_age %></p>
+
 <% @average_prices.each do |representation, average_price| %>
-<p>Spectacle: <%= representation %> / prix moyen: <%= average_price.round(2) %>€</p>    
+<p> <%= representation %> / prix moyen: <%= average_price.round(2) %>€</p>    
 <% end %>
+
 <table>
   <thead>
     <tr>
