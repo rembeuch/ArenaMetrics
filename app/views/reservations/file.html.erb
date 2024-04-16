@@ -2,6 +2,25 @@
   <%= file_field_tag :file %>
   <%= submit_tag "Importer le fichier CSV" %>
 <% end %>
-
 <%= link_to "Voir toutes les réservations", reservations_path %>
+
+<hr>
+Si votre csv ne correspond pas au format indiqué dans la <%= link_to "documentation", "https://github.com/rembeuch/ArenaMetrics/blob/main/README.md" %>
+ , veuillez indiqué le numéro de la colonne correspondante (si vous n'avez pas l'information, laissez le champ vide)
+<%= form_with(url: import_form_path, method: :post) do |form| %>
+  <% @reservation_attributes.each_with_index do |attribute, index| %>
+    <div class="form-group">
+      <%= form.label "column_mapping[#{index}]", attribute.capitalize %> :
+      <%= form.number_field "column_mapping[#{index}]", class: 'form-control', min: 0 %>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :file, "Sélectionner un fichier CSV" %>
+    <%= form.file_field :file, class: 'form-control' %>
+  </div>
+
+  <%= form.submit "Importer", class: 'btn btn-primary' %>
+<% end %>
+
 
